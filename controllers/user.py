@@ -115,6 +115,10 @@ def user_show(user_id):
 def user_create():
     if "logged_in" not in session:
         return redirect(url_for('login.login'))
+
+    if session.get("is_admin") != 1:
+        return redirect(url_for('question.question_overview'))
+
     if request.method == 'POST':
         # Retrieve form data
         login = request.form.get('login')
